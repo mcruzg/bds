@@ -11,7 +11,7 @@
  Target Server Version : 100703
  File Encoding         : 65001
 
- Date: 05/04/2022 12:46:54
+ Date: 05/04/2022 15:38:14
 */
 
 SET NAMES utf8mb4;
@@ -192,20 +192,18 @@ CREATE TABLE `entradas`  (
   INDEX `fk_proveedor_entrada`(`cve_proveedor`) USING BTREE,
   CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`cve_proveedor`) REFERENCES `proveedores` (`cve_proveedor`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_sucursal_entrada` FOREIGN KEY (`cve_sucursal`) REFERENCES `sucursales` (`cve_sucursal`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'Almacena las entradas de material' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'Almacena las entradas de material' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of entradas
 -- ----------------------------
-INSERT INTO `entradas` VALUES (1, 1, 1, NULL, '2022-04-05 08:16:01', 'COMPRA', '123445', 'CAPTURA', NULL, '2022-04-05 08:16:01', 'VIG');
-INSERT INTO `entradas` VALUES (2, 1, 1, NULL, '2022-04-05 08:49:32', 'COMPRA', '', 'CAPTURA', NULL, '2022-04-05 08:49:32', 'VIG');
-INSERT INTO `entradas` VALUES (3, 1, 1, NULL, '2022-04-05 10:13:01', 'COMPRA', '1552', 'CAPTURA', NULL, '2022-04-05 10:04:56', 'VIG');
-INSERT INTO `entradas` VALUES (4, 1, NULL, NULL, '2022-04-05 10:19:30', 'COMPRA', NULL, 'CAPTURA', NULL, '2022-04-05 10:19:18', 'VIG');
-INSERT INTO `entradas` VALUES (5, 1, NULL, 2, '2022-04-05 10:23:17', 'TRASPASO', '1111', 'CAPTURA', NULL, '2022-04-05 10:22:59', 'VIG');
-INSERT INTO `entradas` VALUES (6, 1, 1, NULL, '2022-04-05 12:15:01', 'COMPRA', '11233344', 'CAPTURA', NULL, '2022-04-05 12:15:01', 'VIG');
-INSERT INTO `entradas` VALUES (7, 1, 2, NULL, '2022-04-05 12:39:34', 'COMPRA', '256544', 'CAPTURA', NULL, '2022-04-05 12:39:34', 'VIG');
-INSERT INTO `entradas` VALUES (8, 1, 2, NULL, '2022-04-05 12:40:44', 'COMPRA', '4566', 'CAPTURA', NULL, '2022-04-05 12:40:44', 'VIG');
-INSERT INTO `entradas` VALUES (9, 1, 2, NULL, '2022-04-05 12:42:06', 'COMPRA', '89', 'CAPTURA', NULL, '2022-04-05 12:42:06', 'VIG');
+INSERT INTO `entradas` VALUES (17, 1, 2, NULL, '2022-04-05 14:27:20', 'COMPRA', '1', 'CAPTURA', NULL, '2022-04-05 14:27:20', 'VIG');
+INSERT INTO `entradas` VALUES (18, 1, 1, NULL, '2022-04-05 15:04:58', 'COMPRA', 'aaaaaa', 'CAPTURA', NULL, '2022-04-05 15:04:58', 'VIG');
+INSERT INTO `entradas` VALUES (19, 1, 2, NULL, '2022-04-05 15:19:16', 'COMPRA', '222', 'CAPTURA', NULL, '2022-04-05 15:19:16', 'VIG');
+INSERT INTO `entradas` VALUES (20, 1, 1, NULL, '2022-04-05 15:21:06', 'COMPRA', '333', 'CAPTURA', NULL, '2022-04-05 15:21:06', 'VIG');
+INSERT INTO `entradas` VALUES (21, 1, 2, NULL, '2022-04-05 15:22:11', 'COMPRA', '444', 'CAPTURA', NULL, '2022-04-05 15:22:11', 'VIG');
+INSERT INTO `entradas` VALUES (22, 1, 2, NULL, '2022-04-05 15:23:55', 'COMPRA', '555', 'CAPTURA', NULL, '2022-04-05 15:23:55', 'VIG');
+INSERT INTO `entradas` VALUES (23, 1, 1, NULL, '2022-04-05 15:26:43', 'COMPRA', '6666', 'CAPTURA', NULL, '2022-04-05 15:26:43', 'VIG');
 
 -- ----------------------------
 -- Table structure for entradas_productos
@@ -218,31 +216,28 @@ CREATE TABLE `entradas_productos`  (
   `fecha_entrada` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `cantidad_entrada` int(11) NULL DEFAULT NULL COMMENT 'Cantidad de material que entra',
   `precio_entrada` decimal(11, 2) NULL DEFAULT NULL COMMENT 'Precio de compra del material',
-  `unidad_medida` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Unidad de medida del material: PIEZA, LITRO, METRO',
+  `cve_unidad_medida` int(11) NOT NULL COMMENT 'Unidad de medida del material: PIEZA, LITRO, METRO',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
   `importe_entrada` decimal(11, 2) NULL DEFAULT NULL,
   `subtotal_compra` decimal(11, 2) NULL DEFAULT NULL,
-  `inpuesto_total` decimal(11, 2) NULL DEFAULT NULL,
+  `impuesto_total` decimal(11, 2) NULL DEFAULT NULL,
   `precio_entrada_neto` decimal(11, 2) NULL DEFAULT NULL,
   `factor` decimal(11, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`cve_entrada_producto`) USING BTREE,
   INDEX `fk_producto_entrada`(`cve_producto`) USING BTREE,
   INDEX `fk_entrada_entrada_producto`(`cve_entrada`) USING BTREE,
+  INDEX `fk_unidad_entrada`(`cve_unidad_medida`) USING BTREE,
   CONSTRAINT `fk_entrada_entrada_producto` FOREIGN KEY (`cve_entrada`) REFERENCES `entradas` (`cve_entrada`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_producto_entrada` FOREIGN KEY (`cve_producto`) REFERENCES `productos` (`cve_producto`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'Almacena el detalle de las entradas de material' ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `fk_producto_entrada` FOREIGN KEY (`cve_producto`) REFERENCES `productos` (`cve_producto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_unidad_entrada` FOREIGN KEY (`cve_unidad_medida`) REFERENCES `unidades` (`cve_unidad`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'Almacena el detalle de las entradas de material' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of entradas_productos
 -- ----------------------------
-INSERT INTO `entradas_productos` VALUES (1, 1, 1, '2022-04-05 08:16:20', 12, 15.70, 'PIEZA', '2022-04-05 08:16:20', 'VIG', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `entradas_productos` VALUES (2, 2, 3, '2022-04-05 08:49:48', 15, 185.00, 'LITRO', '2022-04-05 08:49:48', 'VIG', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `entradas_productos` VALUES (3, 6, 3, '2022-04-05 12:15:34', 12, 10.00, 'LITRO', '2022-04-05 12:15:34', 'VIG', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `entradas_productos` VALUES (4, 6, 4, '2022-04-05 12:16:03', 12, 111.00, 'LITRO', '2022-04-05 12:16:03', 'VIG', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `entradas_productos` VALUES (5, 9, 4, '2022-04-05 12:43:19', 33, 22.00, 'PIEZA', '2022-04-05 12:43:19', 'NVG', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `entradas_productos` VALUES (6, 9, 5, '2022-04-05 12:44:55', 34, 25.00, 'LITRO', '2022-04-05 12:44:55', 'VIG', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `entradas_productos` VALUES (7, 9, 5, '2022-04-05 12:45:35', 12, 10.20, 'PIEZA', '2022-04-05 12:45:35', 'VIG', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `entradas_productos` VALUES (8, 17, 2, '2022-04-05 14:27:57', 12, 10.50, 2, '2022-04-05 14:27:57', 'VIG', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `entradas_productos` VALUES (9, 23, 1, '2022-04-05 15:30:24', 12, 15.00, 2, '2022-04-05 15:30:24', 'VIG', NULL, NULL, NULL, NULL, 10.00);
 
 -- ----------------------------
 -- Table structure for failed_jobs
