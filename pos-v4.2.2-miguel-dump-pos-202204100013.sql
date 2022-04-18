@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : dann
+ Source Server         : dan
  Source Server Type    : MySQL
- Source Server Version : 100703
+ Source Server Version : 100607
  Source Host           : localhost:3306
  Source Schema         : pos
 
  Target Server Type    : MySQL
- Target Server Version : 100703
+ Target Server Version : 100607
  File Encoding         : 65001
 
- Date: 13/04/2022 13:33:50
+ Date: 18/04/2022 02:34:06
 */
 
 SET NAMES utf8mb4;
@@ -22,12 +22,12 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `acciones`;
 CREATE TABLE `acciones`  (
-  `cve_accion` int(11) NOT NULL AUTO_INCREMENT,
+  `cve_accion` int NOT NULL AUTO_INCREMENT,
   `accion` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
   `descripcion` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
   `fecha_alta` timestamp(0) NULL DEFAULT current_timestamp(0),
   `estatus_registro` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-  `cve_menu` int(11) NULL DEFAULT NULL,
+  `cve_menu` int NULL DEFAULT NULL,
   PRIMARY KEY (`cve_accion`) USING BTREE,
   INDEX `acciones_FK`(`cve_menu`) USING BTREE,
   CONSTRAINT `acciones_FK` FOREIGN KEY (`cve_menu`) REFERENCES `menus` (`cve_menu`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -49,8 +49,8 @@ INSERT INTO `acciones` VALUES (7, 'ope_paga_venta', 'Pagar venta', '2022-04-09 2
 -- ----------------------------
 DROP TABLE IF EXISTS `cajas`;
 CREATE TABLE `cajas`  (
-  `cve_caja` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de cajas',
-  `cve_sucursal` int(11) NOT NULL COMMENT 'Identificador del catálogo de sucursales',
+  `cve_caja` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de cajas',
+  `cve_sucursal` int NOT NULL COMMENT 'Identificador del catálogo de sucursales',
   `caja` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Descripción de la caja',
   `codigo_caja` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Código que identifica a la caja en la sucursal',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
@@ -71,8 +71,8 @@ INSERT INTO `cajas` VALUES (2, 2, 'CAJA1', 'S2C1', '2022-03-08 15:30:50', 'VIG')
 -- ----------------------------
 DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE `categorias`  (
-  `cve_categoria` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de categorias',
-  `cve_empresa` int(11) NULL DEFAULT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_categoria` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de categorias',
+  `cve_empresa` int NULL DEFAULT NULL COMMENT 'Identificador del catálogo de empresas',
   `categoria` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Descripción de la categoria',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
@@ -104,15 +104,15 @@ INSERT INTO `categorias` VALUES (17, 1, 'REFRESCOS', '2022-03-26 22:38:33', 'VIG
 -- ----------------------------
 DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes`  (
-  `cve_cliente` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de clientes',
-  `cve_empresa` int(11) NOT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_cliente` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de clientes',
+  `cve_empresa` int NOT NULL COMMENT 'Identificador del catálogo de empresas',
   `cliente` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nombre o razón social del cliente',
   `tipo_cliente` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'F' COMMENT 'Tipo de cliente: M = Moral o F= Física',
   `rfc_cliente` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'RFC del cliente',
   `direccion_cliente` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Dirección fiscal del cliente',
   `correo_cliente` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Correo electrónico del cliente',
   `celular_cliente` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Número de celular del cliente',
-  `descuento_autorizado` int(11) NULL DEFAULT NULL COMMENT 'Porcentaje de descuento autorizado',
+  `descuento_autorizado` int NULL DEFAULT NULL COMMENT 'Porcentaje de descuento autorizado',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
   `curp_cliente` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
@@ -140,9 +140,9 @@ INSERT INTO `clientes` VALUES (19, 1, 'JKSDJKASD', 'F', '', 'SDF', 'ddd@tabasco.
 -- ----------------------------
 DROP TABLE IF EXISTS `cortes_cajas`;
 CREATE TABLE `cortes_cajas`  (
-  `cve_corte_caja` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del corte de caja',
+  `cve_corte_caja` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del corte de caja',
   `codigo_corte_caja` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Código que identifica al corte de caja',
-  `cve_caja` int(11) NOT NULL COMMENT 'Identificador del catálogo de caja',
+  `cve_caja` int NOT NULL COMMENT 'Identificador del catálogo de caja',
   `fecha_inicio` timestamp(0) NOT NULL DEFAULT current_timestamp(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT 'Fecha y hora de inicio del corte de caja',
   `fecha_cierre` timestamp(0) NULL DEFAULT NULL COMMENT 'Fecha y hora de cierre del corte de caja',
   `monto_inicial` decimal(11, 2) NULL DEFAULT NULL COMMENT 'Monto inicial de efectivo',
@@ -164,7 +164,7 @@ CREATE TABLE `cortes_cajas`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `empresas`;
 CREATE TABLE `empresas`  (
-  `cve_empresa` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de empresas',
+  `cve_empresa` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de empresas',
   `empresa` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nombre o razón social de la empresa',
   `rfc` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'RFC de la empresa',
   `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'URL o dirección de la página web',
@@ -185,10 +185,10 @@ INSERT INTO `empresas` VALUES (2, 'EMPRESA DOS PARA VALIDAR LA DIFERENCIA DE INF
 -- ----------------------------
 DROP TABLE IF EXISTS `entradas`;
 CREATE TABLE `entradas`  (
-  `cve_entrada` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del registro de entrada de material',
-  `cve_sucursal` int(11) NOT NULL COMMENT 'Identificador del catálogo de sucursales',
-  `cve_proveedor` int(11) NULL DEFAULT NULL COMMENT 'Identificador del catálogo de proveedores',
-  `cve_traspaso_sucursal` int(11) NULL DEFAULT NULL COMMENT 'Identificador del registro de traspasos de material',
+  `cve_entrada` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del registro de entrada de material',
+  `cve_sucursal` int NOT NULL COMMENT 'Identificador del catálogo de sucursales',
+  `cve_proveedor` int NULL DEFAULT NULL COMMENT 'Identificador del catálogo de proveedores',
+  `cve_traspaso_sucursal` int NULL DEFAULT NULL COMMENT 'Identificador del registro de traspasos de material',
   `fecha_entrada` timestamp(0) NOT NULL DEFAULT current_timestamp(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT 'Fecha de entrada del material',
   `tipo_entrada` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Tipo de entrada: COMPRA,TRASPASO,NOTA CREDITO',
   `comprobante_entrada` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Comprobante del documento que da origen a la entrada',
@@ -219,21 +219,21 @@ INSERT INTO `entradas` VALUES (23, 1, 1, NULL, '2022-04-05 15:26:43', 'COMPRA', 
 -- ----------------------------
 DROP TABLE IF EXISTS `entradas_productos`;
 CREATE TABLE `entradas_productos`  (
-  `cve_entrada_producto` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del detalle de entrada de material',
-  `cve_entrada` int(11) NOT NULL COMMENT 'Identificador del registro de entrada de material',
-  `cve_producto` int(11) NOT NULL COMMENT 'Identificador del catálogo de productos',
-  `cantidad_entrada` int(11) NULL DEFAULT NULL COMMENT 'Cantidad de material que entra',
-  `cve_unidad_medida` int(11) NOT NULL COMMENT 'Unidad de medida del material: PIEZA, LITRO, METRO',
+  `cve_entrada_producto` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del detalle de entrada de material',
+  `cve_entrada` int NOT NULL COMMENT 'Identificador del registro de entrada de material',
+  `cve_producto` int NOT NULL COMMENT 'Identificador del catálogo de productos',
+  `producto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `codigo_barra` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `fecha_entrada` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
+  `cantidad_entrada` int NULL DEFAULT NULL COMMENT 'Cantidad de material que entra',
+  `cve_unidad_medida` int NOT NULL COMMENT 'Unidad de medida del material: PIEZA, LITRO, METRO',
+  `unidad_medida_entrada` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
-  `producto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `precio_normal` decimal(11, 2) NULL DEFAULT NULL,
-  `precio_normal_neto` decimal(11, 2) NULL DEFAULT NULL,
   `precio_entrada` decimal(11, 2) NULL DEFAULT NULL COMMENT 'Precio de compra del material',
   `precio_entrada_neto` decimal(11, 2) NULL DEFAULT NULL,
-  `precio_venta` decimal(11, 2) NULL DEFAULT NULL,
-  `precio_venta_neto` decimal(11, 2) NULL DEFAULT NULL,
+  `precio_normal` decimal(11, 2) NULL DEFAULT NULL,
+  `precio_normal_neto` decimal(11, 2) NULL DEFAULT NULL,
   `importe_normal` decimal(11, 2) NULL DEFAULT NULL,
   `importe_normal_neto` decimal(11, 2) NULL DEFAULT NULL,
   `importe_entrada` decimal(11, 2) NULL DEFAULT NULL,
@@ -241,8 +241,6 @@ CREATE TABLE `entradas_productos`  (
   `desc_porcentaje` decimal(11, 2) NULL DEFAULT NULL,
   `desc_total` decimal(11, 2) NULL DEFAULT NULL,
   `importe_entrada_neto` decimal(11, 2) NULL DEFAULT NULL,
-  `importe_venta` decimal(11, 2) NULL DEFAULT NULL,
-  `importe_venta_neto` decimal(11, 2) NULL DEFAULT NULL,
   `subtotal_compra` decimal(11, 2) NULL DEFAULT NULL,
   `factor` decimal(11, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`cve_entrada_producto`) USING BTREE,
@@ -257,15 +255,15 @@ CREATE TABLE `entradas_productos`  (
 -- ----------------------------
 -- Records of entradas_productos
 -- ----------------------------
-INSERT INTO `entradas_productos` VALUES (8, 17, 2, 12, 2, '2022-04-05 14:27:57', '2022-04-05 14:27:57', 'VIG', NULL, NULL, NULL, 10.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `entradas_productos` VALUES (9, 23, 1, 12, 2, '2022-04-05 15:30:24', '2022-04-05 15:30:24', 'VIG', NULL, NULL, NULL, 15.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10.00);
+INSERT INTO `entradas_productos` VALUES (8, 17, 2, NULL, NULL, '2022-04-05 14:27:57', 12, 2, NULL, '2022-04-05 14:27:57', 'VIG', 10.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `entradas_productos` VALUES (9, 23, 1, NULL, NULL, '2022-04-05 15:30:24', 12, 2, NULL, '2022-04-05 15:30:24', 'VIG', 15.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10.00);
 
 -- ----------------------------
 -- Table structure for failed_jobs
 -- ----------------------------
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -285,8 +283,8 @@ CREATE TABLE `failed_jobs`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `impuestos`;
 CREATE TABLE `impuestos`  (
-  `cve_impuesto` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de impuestos',
-  `cve_empresa` int(11) NULL DEFAULT NULL COMMENT 'Clave del catálogo de empresas',
+  `cve_impuesto` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de impuestos',
+  `cve_empresa` int NULL DEFAULT NULL COMMENT 'Clave del catálogo de empresas',
   `impuesto` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Descripcion, código o nombre del impuesto',
   `tasa` decimal(11, 2) NOT NULL COMMENT 'Tasa aplica del impuesto',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
@@ -308,8 +306,8 @@ INSERT INTO `impuestos` VALUES (3, 1, 'ISR', 0.07, '2022-03-19 22:17:51', 'VIG')
 -- ----------------------------
 DROP TABLE IF EXISTS `listas_catalogos`;
 CREATE TABLE `listas_catalogos`  (
-  `cve_lista_catalogo` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la lista de catálogos',
-  `cve_empresa` int(11) NOT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_lista_catalogo` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la lista de catálogos',
+  `cve_empresa` int NOT NULL COMMENT 'Identificador del catálogo de empresas',
   `catalogo` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nombre o descripción del catálogo',
   `valores_catalogo` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Valores de los catálogos',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
@@ -345,13 +343,13 @@ INSERT INTO `listas_catalogos` VALUES (22, 1, 'tipo_persona', '[{\"id\":\"F\",\"
 -- ----------------------------
 DROP TABLE IF EXISTS `mano_obra`;
 CREATE TABLE `mano_obra`  (
-  `cve_mano_obra` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de mano de obra',
-  `cve_empresa` int(11) NOT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_mano_obra` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de mano de obra',
+  `cve_empresa` int NOT NULL COMMENT 'Identificador del catálogo de empresas',
   `mano_obra` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nombre de la mano de obra',
   `desc_mano_obra` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Descripción de la mano de obra',
   `duracion` decimal(11, 2) NULL DEFAULT NULL COMMENT 'Duración en horas de la mano de obra',
   `costo_mano_obra` decimal(11, 2) NULL DEFAULT NULL COMMENT 'Costo o precio de la mano de obra',
-  `porcentaje_tecnico` int(11) NULL DEFAULT NULL COMMENT 'Porcentaje que se le paga al técnico que realiza la mano de obra',
+  `porcentaje_tecnico` int NULL DEFAULT NULL COMMENT 'Porcentaje que se le paga al técnico que realiza la mano de obra',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
   PRIMARY KEY (`cve_mano_obra`) USING BTREE,
@@ -374,14 +372,14 @@ INSERT INTO `mano_obra` VALUES (6, 1, 'CAMBIO DE AMORTIGUADOR TRASERO', 'CAMBIO 
 -- ----------------------------
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE `menus`  (
-  `cve_menu` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de menús',
-  `cve_empresa` int(11) NULL DEFAULT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_menu` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de menús',
+  `cve_empresa` int NULL DEFAULT NULL COMMENT 'Identificador del catálogo de empresas',
   `menu` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nombre del menú',
   `url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'javascript:void(0);' COMMENT 'URL del menú',
-  `orden` int(11) NOT NULL COMMENT 'Orden en que se presenta el menú',
+  `orden` int NOT NULL COMMENT 'Orden en que se presenta el menú',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
-  `cve_menu_padre` int(11) NULL DEFAULT NULL,
+  `cve_menu_padre` int NULL DEFAULT NULL,
   `icono` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`cve_menu`) USING BTREE,
   INDEX `fk_empresa_menus`(`cve_empresa`) USING BTREE,
@@ -423,9 +421,9 @@ INSERT INTO `menus` VALUES (24, 1, 'Corte de Caja', '/reportes/cortes-caja', 6, 
 -- ----------------------------
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
+  `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
@@ -442,8 +440,8 @@ INSERT INTO `migrations` VALUES (4, '2019_12_14_000001_create_personal_access_to
 -- ----------------------------
 DROP TABLE IF EXISTS `movimientos`;
 CREATE TABLE `movimientos`  (
-  `cve_movimiento` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del movimiento de caja durante un corte',
-  `cve_corte_caja` int(11) NULL DEFAULT NULL COMMENT 'Identificador del corte de caja',
+  `cve_movimiento` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del movimiento de caja durante un corte',
+  `cve_corte_caja` int NULL DEFAULT NULL COMMENT 'Identificador del corte de caja',
   `tipo_movimiento` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Tipo de movimiento: ENTRADA, SALIDA',
   `fecha_movimiento` timestamp(0) NOT NULL DEFAULT current_timestamp(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT 'Fecha y hora en que se realiza el movimiento',
   `importe_movimiento` decimal(11, 2) NOT NULL COMMENT 'Importe del movimiento',
@@ -451,8 +449,8 @@ CREATE TABLE `movimientos`  (
   `medio_movimiento` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Medio del movimiento: EFECTIVO, CHEQUES, VALES, NOTA CREDITO',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
-  `cve_caja` int(11) NULL DEFAULT NULL,
-  `cve_venta` int(11) NULL DEFAULT NULL,
+  `cve_caja` int NULL DEFAULT NULL,
+  `cve_venta` int NULL DEFAULT NULL,
   `tipo_tarjeta` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Si el pago es con tajeta se indica el tipo de tarjeta: CREDITO, DEBITO',
   PRIMARY KEY (`cve_movimiento`) USING BTREE,
   INDEX `fk_corte_caja_movimientos`(`cve_corte_caja`) USING BTREE,
@@ -474,8 +472,8 @@ INSERT INTO `movimientos` VALUES (2, NULL, 'ENTRADA', '2022-04-02 21:34:27', 136
 -- ----------------------------
 DROP TABLE IF EXISTS `notas_credito`;
 CREATE TABLE `notas_credito`  (
-  `cve_nota_credito` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la nota de venta',
-  `cve_venta` int(11) NULL DEFAULT NULL COMMENT 'Identificador del registro de venta',
+  `cve_nota_credito` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la nota de venta',
+  `cve_venta` int NULL DEFAULT NULL COMMENT 'Identificador del registro de venta',
   `folio_ticket` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Número o folio del ticket de venta',
   `motivo_nota_credito` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Descripción del motivo que origina la nota de venta',
   `fecha_nota_credito` timestamp(0) NOT NULL DEFAULT current_timestamp(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT 'Fecha y hora en que se registra la nota de venta',
@@ -511,9 +509,9 @@ CREATE TABLE `password_resets`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `personal_access_tokens`;
 CREATE TABLE `personal_access_tokens`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
@@ -585,17 +583,17 @@ INSERT INTO `personal_access_tokens` VALUES (51, 'App\\Models\\User', 6, 'auth_t
 -- ----------------------------
 DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos`  (
-  `cve_producto` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de productos',
-  `cve_empresa` int(11) NULL DEFAULT NULL COMMENT 'Identificador del catálogo de empresas',
-  `cve_categoria` int(11) NULL DEFAULT NULL COMMENT 'Identificador del catálogo de categorías',
+  `cve_producto` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de productos',
+  `cve_empresa` int NULL DEFAULT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_categoria` int NULL DEFAULT NULL COMMENT 'Identificador del catálogo de categorías',
   `producto` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Nombre del producto o material',
   `codigo_barras` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Código de barras asociado al producto',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
   `clave_interna` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `servicio` tinyint(1) NULL DEFAULT NULL,
-  `cve_unidad_compra` int(11) NULL DEFAULT NULL,
-  `cve_unidad_venta` int(11) NULL DEFAULT NULL,
+  `cve_unidad_compra` int NULL DEFAULT NULL,
+  `cve_unidad_venta` int NULL DEFAULT NULL,
   `factor` decimal(11, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`cve_producto`) USING BTREE,
   INDEX `fk_categoria_producto`(`cve_categoria`) USING BTREE,
@@ -622,8 +620,8 @@ INSERT INTO `productos` VALUES (5, 1, 2, 'ESTE ES OTRO PRODUCTO DE PRUEBA', '3',
 -- ----------------------------
 DROP TABLE IF EXISTS `productos_descripciones`;
 CREATE TABLE `productos_descripciones`  (
-  `cve_producto_descripcion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de las descripciones de productos',
-  `cve_producto` int(11) NOT NULL COMMENT 'Identificador del catálogo de productos',
+  `cve_producto_descripcion` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador de las descripciones de productos',
+  `cve_producto` int NOT NULL COMMENT 'Identificador del catálogo de productos',
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'Descripción asociada',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
@@ -657,8 +655,8 @@ INSERT INTO `productos_descripciones` VALUES (23, 5, '', '2022-03-31 10:08:33', 
 -- ----------------------------
 DROP TABLE IF EXISTS `productos_imagenes`;
 CREATE TABLE `productos_imagenes`  (
-  `cve_producto_imagen` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Asociación de imagen a producto',
-  `cve_producto` int(11) NOT NULL COMMENT 'Identificador del catálogo de productos',
+  `cve_producto_imagen` int NOT NULL AUTO_INCREMENT COMMENT 'Asociación de imagen a producto',
+  `cve_producto` int NOT NULL COMMENT 'Identificador del catálogo de productos',
   `url_imagen` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'URL de la imagen asociada',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
@@ -676,9 +674,9 @@ CREATE TABLE `productos_imagenes`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `productos_sucursales`;
 CREATE TABLE `productos_sucursales`  (
-  `cve_producto_sucursal` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del producto de una sucursal',
-  `cve_sucursal` int(11) NOT NULL COMMENT 'Identificador del catálogo de sucursales',
-  `cve_producto` int(11) NOT NULL COMMENT 'Identificador del catálogo de productos',
+  `cve_producto_sucursal` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del producto de una sucursal',
+  `cve_sucursal` int NOT NULL COMMENT 'Identificador del catálogo de sucursales',
+  `cve_producto` int NOT NULL COMMENT 'Identificador del catálogo de productos',
   `existencia` decimal(11, 2) NULL DEFAULT NULL COMMENT 'Existencia del producto en la sucursal',
   `existencia_minima` decimal(11, 2) NULL DEFAULT NULL COMMENT 'Existencia mínima del producto antes de realizar pedido',
   `ubicacion` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Descripción de la ubicación del producto',
@@ -703,7 +701,7 @@ CREATE TABLE `productos_sucursales`  (
 -- Records of productos_sucursales
 -- ----------------------------
 INSERT INTO `productos_sucursales` VALUES (1, 1, 1, 0.00, 0.00, NULL, '2022-03-20 22:51:58', 'NVI', 52.371, 628.448, 78.556, 91.13, 729.00, 1, 50.00, NULL);
-INSERT INTO `productos_sucursales` VALUES (2, 1, 1, 0.00, 0.00, NULL, '2022-03-20 22:54:25', 'VIG', 68.822, 825.862, 103.233, 119.75, 958.00, 1, 50.00, 479.000);
+INSERT INTO `productos_sucursales` VALUES (2, 1, 1, 0.00, 0.00, NULL, '2022-03-20 22:54:25', 'VIG', 958.000, 825.862, 103.233, 119.75, 53.00, 1, 50.00, 479.000);
 INSERT INTO `productos_sucursales` VALUES (3, 1, 2, 4.00, 0.00, NULL, '2022-03-20 23:24:55', 'NVI', 1018.103, 1018.103, 1537.336, 1783.31, 1181.00, 1, 50.00, NULL);
 INSERT INTO `productos_sucursales` VALUES (4, 1, 2, 4.00, 0.00, NULL, '2022-03-20 23:28:15', 'NVI', 1681.422, 1681.422, 2101.778, 2438.06, 1950.45, 1, 25.00, 975.225);
 INSERT INTO `productos_sucursales` VALUES (5, 1, 3, 0.00, 0.00, NULL, '2022-03-22 11:27:04', 'VIG', 80.819, 1293.103, 101.024, 117.19, 1500.00, 1, 25.00, NULL);
@@ -716,9 +714,9 @@ INSERT INTO `productos_sucursales` VALUES (8, 1, 5, 0.00, 0.00, NULL, '2022-03-3
 -- ----------------------------
 DROP TABLE IF EXISTS `productos_sucursales_impuestos`;
 CREATE TABLE `productos_sucursales_impuestos`  (
-  `cve_producto_sucursal_impuesto` int(11) NOT NULL AUTO_INCREMENT,
-  `cve_producto_sucursal` int(11) NOT NULL,
-  `cve_impuesto` int(11) NOT NULL,
+  `cve_producto_sucursal_impuesto` int NOT NULL AUTO_INCREMENT,
+  `cve_producto_sucursal` int NOT NULL,
+  `cve_impuesto` int NOT NULL,
   `fecha_alta` timestamp(0) NULL DEFAULT current_timestamp(0),
   `estatus_registro` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'VIG',
   PRIMARY KEY (`cve_producto_sucursal_impuesto`) USING BTREE,
@@ -742,7 +740,7 @@ INSERT INTO `productos_sucursales_impuestos` VALUES (27, 8, 1, '2022-03-31 10:08
 -- ----------------------------
 DROP TABLE IF EXISTS `proveedores`;
 CREATE TABLE `proveedores`  (
-  `cve_proveedor` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de proveedores',
+  `cve_proveedor` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de proveedores',
   `proveedor` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nombre o razón social de proveedor',
   `rfc_proveedor` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'RFC del proveedor',
   `correo_proveedor` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Correo electrónico del proveedor',
@@ -763,8 +761,8 @@ INSERT INTO `proveedores` VALUES (2, 'DISTRIBUIDORA MERCANTIL DEL SURESTE S.A. D
 -- ----------------------------
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles`  (
-  `cve_rol` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de roles',
-  `cve_empresa` int(11) NULL DEFAULT NULL COMMENT 'Clave del catálogo de empresas',
+  `cve_rol` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de roles',
+  `cve_empresa` int NULL DEFAULT NULL COMMENT 'Clave del catálogo de empresas',
   `rol` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Descripción o nombre del rol',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
@@ -786,9 +784,9 @@ INSERT INTO `roles` VALUES (4, 1, 'Consultor', '2022-04-09 17:22:53', 'VIG');
 -- ----------------------------
 DROP TABLE IF EXISTS `roles_accion`;
 CREATE TABLE `roles_accion`  (
-  `cve_rol_accion` int(11) NOT NULL AUTO_INCREMENT,
-  `cve_rol` int(11) NULL DEFAULT NULL,
-  `cve_accion` int(11) NULL DEFAULT NULL,
+  `cve_rol_accion` int NOT NULL AUTO_INCREMENT,
+  `cve_rol` int NULL DEFAULT NULL,
+  `cve_accion` int NULL DEFAULT NULL,
   `fecha_alta` timestamp(0) NULL DEFAULT current_timestamp(0),
   `estatus_registro` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`cve_rol_accion`) USING BTREE
@@ -810,9 +808,9 @@ INSERT INTO `roles_accion` VALUES (7, 1, 7, '2022-04-09 21:53:35', 'VIG');
 -- ----------------------------
 DROP TABLE IF EXISTS `roles_menu`;
 CREATE TABLE `roles_menu`  (
-  `cve_rol_menu` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la asociación de menú a rol ',
-  `cve_rol` int(11) NOT NULL COMMENT 'Identificador del catálogo de roles',
-  `cve_menu` int(11) NOT NULL COMMENT 'Identificador del catálogo de menús',
+  `cve_rol_menu` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la asociación de menú a rol ',
+  `cve_rol` int NOT NULL COMMENT 'Identificador del catálogo de roles',
+  `cve_menu` int NOT NULL COMMENT 'Identificador del catálogo de menús',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
   PRIMARY KEY (`cve_rol_menu`) USING BTREE,
@@ -855,8 +853,8 @@ INSERT INTO `roles_menu` VALUES (24, 1, 24, '2022-04-09 17:24:24', 'VIG');
 -- ----------------------------
 DROP TABLE IF EXISTS `sucursales`;
 CREATE TABLE `sucursales`  (
-  `cve_sucursal` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de sucursales',
-  `cve_empresa` int(11) NOT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_sucursal` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de sucursales',
+  `cve_empresa` int NOT NULL COMMENT 'Identificador del catálogo de empresas',
   `sucursal` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nombre de la sucursal',
   `direccion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Dirección del sucursal',
   `correo_sucursal` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Correo electrónico del sucursal',
@@ -880,8 +878,8 @@ INSERT INTO `sucursales` VALUES (2, 1, 'TABASCO 2000', 'AV. PASEO TABASCO 2510, 
 -- ----------------------------
 DROP TABLE IF EXISTS `tecnicos`;
 CREATE TABLE `tecnicos`  (
-  `cve_tecnico` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de técnicos',
-  `cve_empresa` int(11) NOT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_tecnico` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de técnicos',
+  `cve_empresa` int NOT NULL COMMENT 'Identificador del catálogo de empresas',
   `nombre_tecnico` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nombre completo del técnico',
   `rfc_tecnico` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'RFC del técnico',
   `correo_tecnico` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Correo electrónico del técnico',
@@ -906,11 +904,11 @@ INSERT INTO `tecnicos` VALUES (5, 1, 'ADRIAN RICARDO PALOMEQUE DE LA CRUZ', 'PAD
 -- ----------------------------
 DROP TABLE IF EXISTS `traspasos_producto_sucursal`;
 CREATE TABLE `traspasos_producto_sucursal`  (
-  `cve_traspaso_sucursal` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del traspaso de producto o material',
-  `cve_empresa` int(11) NOT NULL COMMENT 'Identificador del catálogo de empresas',
-  `cve_producto_sucursal` int(11) NOT NULL COMMENT 'Identificador del producto en la sucursal',
-  `cve_sucursal_origen` int(11) NOT NULL COMMENT 'Identificador de la sucursal origen',
-  `cve_sucursal_destino` int(11) NOT NULL COMMENT 'Identificador de la sucursal destino',
+  `cve_traspaso_sucursal` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del traspaso de producto o material',
+  `cve_empresa` int NOT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_producto_sucursal` int NOT NULL COMMENT 'Identificador del producto en la sucursal',
+  `cve_sucursal_origen` int NOT NULL COMMENT 'Identificador de la sucursal origen',
+  `cve_sucursal_destino` int NOT NULL COMMENT 'Identificador de la sucursal destino',
   `fecha_traspaso` timestamp(0) NOT NULL DEFAULT current_timestamp(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT 'Fecha en que se realiza el traspaso',
   `cantidad_traspaso` decimal(11, 2) NULL DEFAULT NULL COMMENT 'Cantidad de producto o material',
   `unidad_medida` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Unidad de medida del producto o material: PIEZA, LITRO, METRO',
@@ -938,8 +936,8 @@ CREATE TABLE `traspasos_producto_sucursal`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `unidades`;
 CREATE TABLE `unidades`  (
-  `cve_unidad` int(11) NOT NULL AUTO_INCREMENT,
-  `cve_empresa` int(11) NOT NULL,
+  `cve_unidad` int NOT NULL AUTO_INCREMENT,
+  `cve_empresa` int NOT NULL,
   `nombre` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `descripcion` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `estatus_registro` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -971,7 +969,7 @@ INSERT INTO `unidades` VALUES (16, 1, 'PR123', 'ESTO ES UNA PRUEBA', 'VIG', '202
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp(0) NULL DEFAULT NULL,
@@ -981,9 +979,9 @@ CREATE TABLE `users`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `celular` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `cve_empresa` int(11) NULL DEFAULT NULL,
+  `cve_empresa` int NULL DEFAULT NULL,
   `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `cve_sucursal` int(11) NULL DEFAULT NULL,
+  `cve_sucursal` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `users_email_unique`(`email`) USING BTREE,
   INDEX `fk_users_empresa`(`cve_empresa`) USING BTREE,
@@ -1003,9 +1001,9 @@ INSERT INTO `users` VALUES (10, 'SOFIA ALVAREZ MORENO', 'sofiaalvarez1890@gmail.
 -- ----------------------------
 DROP TABLE IF EXISTS `users_roles`;
 CREATE TABLE `users_roles`  (
-  `cve_usuario_rol` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la asociación del rol al usuario',
-  `cve_rol` int(11) NOT NULL COMMENT 'Identificador del catálogo de roles',
-  `cve_usuario` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT 'Identificador del catálogo de usuarios',
+  `cve_usuario_rol` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la asociación del rol al usuario',
+  `cve_rol` int NOT NULL COMMENT 'Identificador del catálogo de roles',
+  `cve_usuario` bigint UNSIGNED NULL DEFAULT NULL COMMENT 'Identificador del catálogo de usuarios',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
   PRIMARY KEY (`cve_usuario_rol`) USING BTREE,
@@ -1019,15 +1017,15 @@ CREATE TABLE `users_roles`  (
 -- Records of users_roles
 -- ----------------------------
 INSERT INTO `users_roles` VALUES (1, 1, 1, '2022-04-09 17:33:15', 'VIG');
-INSERT INTO `users_roles` VALUES (2, 1, 5, '2022-04-11 09:19:06', 'VIG');
+INSERT INTO `users_roles` VALUES (2, 1, 5, '2022-04-10 18:17:12', 'VIG');
 
 -- ----------------------------
 -- Table structure for usuarios
 -- ----------------------------
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios`  (
-  `cve_usuario` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de usuarios',
-  `cve_empresa` int(11) NOT NULL COMMENT 'Identificador del catálogo de empresas',
+  `cve_usuario` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del catálogo de usuarios',
+  `cve_empresa` int NOT NULL COMMENT 'Identificador del catálogo de empresas',
   `nombre_usuario` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nombre completo del usuario',
   `correo_usuario` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Correo electrónico del usuario',
   `celular_usuario` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Número de celular del usuario',
@@ -1049,18 +1047,18 @@ CREATE TABLE `usuarios`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `ventas`;
 CREATE TABLE `ventas`  (
-  `cve_venta` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del registro de ventas',
-  `cve_sucursal` int(11) NOT NULL COMMENT 'Identificador del catálogo de sucursales',
-  `cve_cliente` int(11) NOT NULL COMMENT 'Identificador del catálogo de clientes',
-  `cve_corte_caja` int(11) NULL DEFAULT NULL COMMENT 'Identificador del corte de caja',
-  `cve_tecnico` int(11) NULL DEFAULT NULL COMMENT 'Identificador del catálogo de técnicos',
+  `cve_venta` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del registro de ventas',
+  `cve_sucursal` int NOT NULL COMMENT 'Identificador del catálogo de sucursales',
+  `cve_cliente` int NOT NULL COMMENT 'Identificador del catálogo de clientes',
+  `cve_corte_caja` int NULL DEFAULT NULL COMMENT 'Identificador del corte de caja',
+  `cve_tecnico` int NULL DEFAULT NULL COMMENT 'Identificador del catálogo de técnicos',
   `nombre_cliente` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Nombre del cliente de mostrador',
   `tipo_venta` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Indica el tipo de venta: NORMAL, SERVICIO, GARANTÍA',
   `fecha_venta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT 'Fecha en que se realiza la venta',
   `tipo_comprobante` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Indica el tipo de comprobante: TICKET, FACTURA, CORREO',
   `estatus_venta` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Estatus de la venta: ENCAPTURA, PORPAGAR, PAGADA, ENTREGADA, FACTURAR, CERRADA, CANCELADA',
   `folio_ticket` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Folio del ticket de venta asociado',
-  `numero_transaccion` int(50) NULL DEFAULT NULL COMMENT 'Número de transacción asociado',
+  `numero_transaccion` int NULL DEFAULT NULL COMMENT 'Número de transacción asociado',
   `usuario_alta` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Clave de usuario que da de alta el registro',
   `fecha_alta` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT 'Fecha de alta del registro',
   `estatus_registro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'VIG' COMMENT 'Indica si el registro esta VIG O NVG',
@@ -1074,7 +1072,7 @@ CREATE TABLE `ventas`  (
   `total_utilidad` decimal(10, 2) NULL DEFAULT NULL,
   `subtotal_compra` decimal(10, 2) NULL DEFAULT NULL,
   `subtotal_utilidad` decimal(10, 2) NULL DEFAULT NULL,
-  `cve_vendedor` int(11) NULL DEFAULT NULL,
+  `cve_vendedor` int NULL DEFAULT NULL,
   PRIMARY KEY (`cve_venta`) USING BTREE,
   INDEX `fk_tecnico_venta`(`cve_tecnico`) USING BTREE,
   INDEX `fk_cliente_venta`(`cve_cliente`) USING BTREE,
@@ -1084,7 +1082,7 @@ CREATE TABLE `ventas`  (
   CONSTRAINT `fk_corte_caja_venta` FOREIGN KEY (`cve_corte_caja`) REFERENCES `cortes_cajas` (`cve_corte_caja`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_sucursal_venta` FOREIGN KEY (`cve_sucursal`) REFERENCES `sucursales` (`cve_sucursal`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_tecnico_venta` FOREIGN KEY (`cve_tecnico`) REFERENCES `tecnicos` (`cve_tecnico`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'Registro de las ventas' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'Registro de las ventas' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ventas
@@ -1102,15 +1100,16 @@ INSERT INTO `ventas` VALUES (39, 1, 18, NULL, NULL, 'DANIEL VAZQUEZ PERALTA', 'N
 INSERT INTO `ventas` VALUES (40, 1, 18, NULL, NULL, 'DANIEL VAZQUEZ PERALTA', 'NORMAL', '2022-04-02 20:17:35', 'TICKET', 'PAGADA', '624903BFB7D86', 8, NULL, '2022-04-02 20:17:35', 'VIG', 191.71, 55.60, 222.39, 0.00, 'DOSCIENTOS VEINTIDOS PESOS 39/100 MNX', 'somos los mejores', 200.94, 21.45, 173.23, 18.48, 1);
 INSERT INTO `ventas` VALUES (42, 1, 1, NULL, NULL, 'MIKE', 'NORMAL', '2022-04-02 21:34:27', 'TICKET', 'PAGADA', '624915C3E8581', 9, NULL, '2022-04-02 21:34:27', 'VIG', 204.26, 0.00, 236.94, 0.00, 'DOSCIENTOS TREINTA Y SEIS PESOS 94/100 MNX', '', 173.58, 63.36, 149.64, 54.62, 1);
 INSERT INTO `ventas` VALUES (43, 1, 3, NULL, NULL, 'SELENE DEL CARMEN LOPEZ OSORIO', 'NORMAL', '2022-04-05 21:47:14', 'TICKET', 'PORPAGAR', '624CFF110EC8E', NULL, NULL, '2022-04-05 21:46:41', 'VIG', 463.14, 59.69, 537.25, 0.00, 'QUINIENTOS TREINTA Y SIETE PESOS 25/100 MNX', '', 413.58, 123.67, 356.54, 106.60, 1);
+INSERT INTO `ventas` VALUES (44, 1, 1, NULL, NULL, 'MIGUEL', 'NORMAL', '2022-04-10 21:19:19', 'TICKET', 'PORPAGAR', '6253902709A67', NULL, NULL, '2022-04-10 21:19:19', 'VIG', 103.23, 0.00, 119.75, 0.00, 'CIENTO DIECINUEVE PESOS 75/100 MNX', '', 79.83, 39.92, 68.82, 34.41, 1);
 
 -- ----------------------------
 -- Table structure for ventas_detalles
 -- ----------------------------
 DROP TABLE IF EXISTS `ventas_detalles`;
 CREATE TABLE `ventas_detalles`  (
-  `cve_venta_detalle` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del detalle de venta',
-  `cve_venta` int(11) NOT NULL COMMENT 'Identificador del registro de venta',
-  `cve_producto_sucursal` int(11) NULL DEFAULT NULL COMMENT 'Identificador del producto de la sucursal',
+  `cve_venta_detalle` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del detalle de venta',
+  `cve_venta` int NOT NULL COMMENT 'Identificador del registro de venta',
+  `cve_producto_sucursal` int NULL DEFAULT NULL COMMENT 'Identificador del producto de la sucursal',
   `cantidad` decimal(11, 2) NULL DEFAULT NULL COMMENT 'Cantidad de producto o material',
   `unidad_medida` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Unidad de medida del producto o material: PIEZA, LITRO, METRO',
   `estatus_venta_detalle` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Estatus del detalle de venta: CAPTURADO, CANCELADO, DEVUELTO',
@@ -1139,7 +1138,7 @@ CREATE TABLE `ventas_detalles`  (
   INDEX `idx_venta_detalle_venta`(`cve_venta`) USING BTREE,
   CONSTRAINT `fk_producto_sucursal_venta_detalle` FOREIGN KEY (`cve_producto_sucursal`) REFERENCES `productos_sucursales` (`cve_producto_sucursal`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_venta_detalle_venta` FOREIGN KEY (`cve_venta`) REFERENCES `ventas` (`cve_venta`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'Registra los detalles de las ventas' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'Registra los detalles de las ventas' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ventas_detalles
@@ -1173,14 +1172,15 @@ INSERT INTO `ventas_detalles` VALUES (77, 42, 5, 1.00, 'PZA', 'CAPTURADO', '2022
 INSERT INTO `ventas_detalles` VALUES (78, 43, 2, 1.00, 'PZA', 'CAPTURADO', '2022-04-05 21:46:41', 'VIG', '00750300927201', 'ACEITE SUPERTECH PACK DE 12 PIEZAS SAE40 DE 946 ML.', 103.233, 119.75, 92.910, 107.78, 103.233, 119.75, 92.91, 107.78, 10.00, 11.97, 68.82, 79.83, 68.82, 0.160, 958.00, 12.00);
 INSERT INTO `ventas_detalles` VALUES (79, 43, 5, 1.00, 'PZA', 'CAPTURADO', '2022-04-05 21:46:41', 'VIG', '651516565', 'PRODUCTO DE PRUEBA DE CAPTURA', 101.024, 117.19, 90.922, 105.47, 101.024, 117.19, 90.92, 105.47, 10.00, 11.72, 80.82, 93.75, 80.82, 0.160, 1500.00, 16.00);
 INSERT INTO `ventas_detalles` VALUES (80, 43, 8, 2.00, 'PZA', 'CAPTURADO', '2022-04-05 21:46:41', 'VIG', '3', 'ESTE ES OTRO PRODUCTO DE PRUEBA', 155.172, 180.00, 139.655, 162.00, 310.344, 360.00, 279.31, 324.00, 10.00, 36.00, 103.45, 240.00, 206.90, 0.160, 120.00, 1.00);
+INSERT INTO `ventas_detalles` VALUES (81, 44, 2, 1.00, 'PZA', 'CAPTURADO', '2022-04-10 21:19:19', 'VIG', '00750300927201', 'ACEITE SUPERTECH PACK DE 12 PIEZAS SAE40 DE 946 ML.', 103.233, 119.75, 103.233, 119.75, 103.233, 119.75, 103.23, 119.75, 0.00, 0.00, 68.82, 79.83, 68.82, 0.160, 958.00, 12.00);
 
 -- ----------------------------
 -- Table structure for ventas_pagos
 -- ----------------------------
 DROP TABLE IF EXISTS `ventas_pagos`;
 CREATE TABLE `ventas_pagos`  (
-  `cve_venta_pago` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del pago asociado a una venta',
-  `cve_venta` int(11) NOT NULL COMMENT 'Identificador del registro de la venta',
+  `cve_venta_pago` int NOT NULL AUTO_INCREMENT COMMENT 'Identificador del pago asociado a una venta',
+  `cve_venta` int NOT NULL COMMENT 'Identificador del registro de la venta',
   `medio_pago` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Medio por el cual se realiza el pago: EFECTIVO, TARJETA, VALE, CHEQUE, TRANSFERENCIA',
   `cantidad` decimal(11, 2) NOT NULL COMMENT 'Cantidad de dinero',
   `numero_comprobante` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Número de comprobante del medio de pago',
